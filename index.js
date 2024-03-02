@@ -50,7 +50,6 @@ const getDate = () => {
     currentDate.innerHTML = date[1] + " " + date[2] + " " + date[3]
 }    
 
-
 function getInfo() {
 	navigator.geolocation.getCurrentPosition(position => {
 		const { latitude, longitude } = position.coords
@@ -60,7 +59,6 @@ function getInfo() {
 
 		fetch(locationURL).then(res => res.json()).then(data => {
             currentLocation.innerHTML = data.address.city + ", " + data.address.country
-            // console.log("Location Data: ", data)
 		}).catch(() => {
             console.log("Error fetching data from geolocation api")
 		})
@@ -70,12 +68,10 @@ function getInfo() {
             currentPrecipitation.innerHTML = data.current.precip_in + " %"
             currentHumidity.innerHTML = data.current.humidity + " %"
             currentWindSpeed.innerHTML = data.current.wind_kph + " km/h"
-            // precip_In humidity wind_hph
         }).catch(() => {
             console.log("Error fetching data from weather api")
         })
         fetch(weatherForecastURL).then(res => res.json()).then(data => {
-            console.log("Forecast Data: ", data.forecast.forecastday)
             tempNextDay1.innerHTML = Math.round((data.forecast.forecastday[1].day.maxtemp_c + data.forecast.forecastday[1].day.mintemp_c) / 2) + "°"
             tempNextDay2.innerHTML = Math.round((data.forecast.forecastday[2].day.maxtemp_c + data.forecast.forecastday[2].day.mintemp_c) / 2) + "°"
             tempNextDay3.innerHTML = Math.round((data.forecast.forecastday[3].day.maxtemp_c + data.forecast.forecastday[3].day.mintemp_c) / 2) + "°"
@@ -88,16 +84,5 @@ function getInfo() {
 getLocation.addEventListener("click", () => {
 	getInfo()
 })
-
-// function testApi() {
-//     const weatherURL = "http://api.weatherapi.com/v1/current.json?key=e590b027b83e40359a911520240203&q=London"
-//     fetch(weatherURL).then(res => res.json()).then(data=> {
-//          console.log(data)
-//     }).catch(() => {
-//         console.log("deu ruim papai")
-//     })
-// }
-
-// testApi()
 
 getDate()
